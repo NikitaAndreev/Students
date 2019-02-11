@@ -1,0 +1,14 @@
+
+=image_tag(photo.picture.thumb('200x200').url, class: 'img-thumbnail float-left', id: photo.id)
+
+javascript:
+    $(document).ready(function ($) {
+        ss = "##{photo.id}";
+        $(ss).click(function () {
+            var tag = "#{@tag}-inp";
+            var url = "#{photo.picture.remote_url}";
+            window.opener.document.getElementById(tag).value = url;
+            window.close();
+            window.opener.focus();
+        });
+    });

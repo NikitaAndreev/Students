@@ -1,0 +1,11 @@
+li
+  =link_to "#{document.name}", document_path(document)
+  = link_to document_path(document) do
+    span.glyphicon.glyphicon-eye-open.left_margin
+  -if can? :manage, Document
+    = link_to edit_document_path(document) do
+      span.glyphicon.glyphicon-pencil.left_margin
+    = link_to document_path(document), method: :delete, data:{confirm: 'Are your suare?'} do
+      span.glyphicon.glyphicon-remove.left_margin
+
+

@@ -1,0 +1,91 @@
+.panel.panel-default
+  .panel-heading
+    h2
+      =t(:my_profile)
+      - if can?(:update, @user)
+        = link_to edit_user_path(@user) do
+          span.glyphicon.glyphicon-pencil.left_margin
+
+  .panel-body
+    .row
+
+      .col-sm-4
+        .text-right
+          =t(:group)
+      .col-sm-4
+        -@user.groups.each do |g|
+          =g.number
+    .row
+      .col-sm-4
+        .text-right
+          =t(:role)
+      .col-sm-4
+        =@user.role
+
+    .row
+      .col-sm-4
+        .text-right
+          =t(:family)
+      .col-sm-4
+        =@user.family
+
+    .row
+      .col-sm-4
+        .text-right
+          =t(:name)
+      .col-sm-4
+        =@user.name
+
+    .row
+      .col-sm-4
+        .text-right
+          =t(:last_name)
+      .col-sm-4
+        =@user.last_name
+
+    .row
+      .col-sm-4
+        .text-right
+          =t(:email)
+      .col-sm-4
+        =@user.email
+
+.panel.panel-default
+  .panel-heading
+    h2
+      =t(:laboratory_page)
+      - if can?(:manage, Lesson)
+        = link_to new_user_lesson_path(id: @user.id, :lesson_type=>'lab') do
+          span.glyphicon.glyphicon-plus.left_margin
+
+  .panel-body
+    .row style='border-bottom:1px solid #ccc'
+      .col-sm-2
+        = t(:lesson_date)
+      .col-sm-8
+        = t(:lesson_name)
+      .col-sm-1
+        = t(:lesson_visited)
+      .col-sm-1
+        = t(:lesson_result)
+    =render partial: 'users/lesson', collection: @user.lessons.labs
+
+.panel.panel-default
+  .panel-heading
+    h2
+      =t(:practice_page)
+      - if can?(:manage, Lesson)
+        = link_to new_user_lesson_path(id: @user.id, :lesson_type=>'practice') do
+          span.glyphicon.glyphicon-plus.left_margin
+
+  .panel-body
+    .row style='border-bottom:1px solid #ccc'
+      .col-sm-2
+        = t(:lesson_date)
+      .col-sm-8
+        = t(:lesson_name)
+      .col-sm-1
+        = t(:lesson_visited)
+      .col-sm-1
+        = t(:lesson_result)
+    = render partial: 'users/lesson', collection: @user.lessons.practices

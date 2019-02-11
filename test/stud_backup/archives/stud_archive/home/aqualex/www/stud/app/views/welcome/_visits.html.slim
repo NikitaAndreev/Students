@@ -1,0 +1,49 @@
+table.table-bordered.table-striped.table-lessons
+  thead
+    tr
+      th №
+      th
+      -lessons.each do |lesson|
+        th
+          =l(lesson.lesson_date, :format=>:day_and_month_short)
+      th
+  tbody
+    -num = 0
+    -users.each do |user|
+      -vcount=0.0
+      tr
+        td
+          -num = num+1
+          = num
+        td
+          =link_to user.fio_short, user_url(user)
+        -user.lessons.where(:lesson_type => lesson_type).order(:lesson_date).each do|l|
+          -vcount=vcount+1 if l.visited
+          - if can? :manage, Lesson
+            td.visit_select lesson_id="#{l.id}"
+              = l.visited ? '+' : '-'
+          -else
+            td
+              = l.visited ? '+' : '-'
+
+        td
+          =number_to_percentage((vcount/lessons.size)*100, precision: 0) unless lessons.empty?
+
+
+javascript:
+  $(document).ready(function(){
+      //url = '/users/'+this.attributes['user_id'].value+'/lessons/'+this.attributes['lesson_id'].value+'/visit';
+      $(".visit_select").editable("/lessons/set_visit", {
+          indicator: '<img src="img/indicator.gif">',
+          data: "{true:'+',false:'-'}",
+          type: "select",
+          submit: "OK",
+          cssclass: 'inline-editor',
+          //style  : "inherit",
+          submitdata: function () {
+              return {
+                  lesson_id: this.attributes['lesson_id'].value
+              };
+          }
+      });
+    });

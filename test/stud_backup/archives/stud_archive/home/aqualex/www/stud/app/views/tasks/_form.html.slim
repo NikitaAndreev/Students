@@ -1,0 +1,13 @@
+= semantic_form_for @task do |f|
+  = f.inputs do
+    =f.input :task_type
+    =f.input :num
+    =f.input :name
+    = f.input :asset, :as => :file
+    =f.input :body, :input_html=>{:class=>'tinymce'}
+
+  = f.actions do
+    =f.action :submit, :as=>:button
+    =f.action :cancel
+
+=tinymce(:image_advtab=>true)

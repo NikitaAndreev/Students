@@ -1,0 +1,11 @@
+.row
+  =semantic_form_for @group do |f|
+    = f.inputs do
+      = f.input :number
+      = f.input :desc
+      = f.input :archive
+
+      = f.actions do
+        = f.action :submit, :as => :button
+        = f.action :cancel
+

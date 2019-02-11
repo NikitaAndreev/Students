@@ -1,0 +1,17 @@
+/*
+*= require my_bootstrap
+* require block-grid
+*/
+
+.albums {
+  border-right: 1px solid #000000;
+  min-height: 540px;
+  /*overflow-y: scroll;*/
+  .small-font {
+    max-width: 150px;
+  }
+}
+
+.photos {
+  /*overflow-y: scroll;*/
+}

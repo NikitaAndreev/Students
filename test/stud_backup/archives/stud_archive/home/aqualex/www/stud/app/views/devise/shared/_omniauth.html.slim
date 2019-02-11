@@ -1,0 +1,6 @@
+- if devise_mapping.omniauthable?
+  h5=t(:login_from_omniauth)
+  ul.omniauth
+    - resource_class.omniauth_providers.each do |provider|
+      li
+        = link_to tag(:span, class: provider.to_s), omniauth_authorize_path(resource_name, provider)

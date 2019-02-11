@@ -1,0 +1,53 @@
+table.table-bordered.table-striped.table-lessons
+  thead
+    tr
+      th №
+      th
+      -lessons.each do |lesson|
+        th
+          =l(lesson.lesson_date, :format=>:day_and_month_short)
+      th
+  tbody
+    -num = 0
+    -users.each do |user|
+      -vcount=0.0
+      -ncount=0.0
+      tr
+        td
+          -num = num+1
+          = num
+        td
+          =link_to user.fio_short, user_url(user)
+        -user.lessons.where(:lesson_type => lesson_type).order(:lesson_date).each do|l|
+          -vcount=vcount+l.result if l.result
+          -ncount=ncount+1 unless l.result.nil?
+          - if can? :manage, Lesson
+            td.set_result lesson_id="#{l.id}"
+              = l.result
+          - else
+            td
+              = l.result
+        -sr =vcount/ncount
+        td style="#{sr<4 ? 'color:#f55' : ''}"
+          =number_with_precision((sr), precision: 1) unless lessons.empty?
+
+
+javascript:
+    $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(".set_result").editable("/lessons/set_result", {
+            indicator : '<img src="img/indicator.gif">',
+            data   : "{2:'2',3:'3',4:'4',5:'5'}",
+            type   : "select",
+            submit : "OK",
+            style  : "inherit",
+            placeholder: "-",
+            submitdata : function() {
+                return {lesson_id : this.attributes['lesson_id'].value};
+            }
+        });
+    });

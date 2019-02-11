@@ -1,0 +1,16 @@
+.row
+  =semantic_form_for @lesson do |f|
+    = f.inputs do
+      = f.input :user, :as => :select, :collection => User.students.collect {|e| [e.fio, e.id] }, :input_html => { :readonly => true }
+      = f.input :task, :as => :select, :collection => Task.labs.collect {|e| ["#{e.num}. #{e.name}", e.id]} if params[:lesson_type]=='lab'
+      = f.input :task, :as => :select, :collection => Task.practices.collect {|e| ["#{e.num}. #{e.name}", e.id]} if params[:lesson_type]=='practice'
+      = f.input :lesson_date, as: :string,  :input_html=>{class: 'datePicker'}
+
+      = f.actions do
+        = f.action :submit, :as => :button
+        = f.action :cancel
+
+  javascript:
+      $(document).ready(function () {
+          $('.datePicker').datepicker({})
+      });

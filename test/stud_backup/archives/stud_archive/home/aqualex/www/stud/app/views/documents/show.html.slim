@@ -1,0 +1,14 @@
+.panel.panel-default
+  .panel-heading
+    .row
+      .col-sm-10
+        h2
+          =@document.name
+          -if can?(:manage, Document)
+            = link_to edit_document_path(@document) do
+              span.glyphicon.glyphicon-pencil.left_margin
+      .col-sm-2
+        p прикрепленные файлы
+        =link_to(@document.asset_name, @document.asset.url) if @document.asset
+  .panel-body
+    =@document.body.html_safe

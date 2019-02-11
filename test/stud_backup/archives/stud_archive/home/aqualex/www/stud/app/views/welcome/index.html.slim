@@ -1,0 +1,73 @@
+.row
+  .col-sm-2
+    .panel.panel-default
+      .panel-heading
+        =t(:current_student_group)
+        -if can? :manage, Group
+          =link_to new_group_path do
+            span.glyphicon.glyphicon-plus.left_margin
+      .panel-body
+        - if can? :manage, Group
+          =form_tag  select_groups_path do |f|
+            =select_tag :cur_group, options_from_collection_for_select(Group.live, :id, :number, @group.id)
+            =submit_tag 'ok'
+        - else
+          h4 =@group.number
+          i=@group.desc
+
+    .panel.panel-default
+      .panel-heading
+        =t(:laboratory_page)
+        - if can? :manage, Lesson
+          =link_to new_lesson_path(:lesson_type=>'lab') do
+            span.glyphicon.glyphicon-plus.left_margin
+      .panel-body
+        ul.list-inline
+          =render partial: 'lessons', collection: @lab_dates, as: :lesson, locals:{islab: true}
+
+    .panel.panel-default
+      .panel-heading
+        =t(:practice_page)
+        - if can? :manage, Lesson
+          =link_to new_lesson_path(:lesson_type=>'practice') do
+            span.glyphicon.glyphicon-plus.left_margin
+      .panel-body
+        ul.list-inline
+          =render partial: 'lessons', collection: @practice_dates, as: :lesson, locals:{islab: false}
+
+
+  .col-sm-10
+    .panel-group#accordion
+
+      .panel.panel-default
+        .panel-heading
+          =link_to t(:laboratory_visits), '#collapseOne', 'data-toggle'=> 'collapse', 'data-parent'=> '#accordion'
+        .panel-collapse.collapse#collapseOne
+          .panel-body
+            = render partial: 'visits', locals:{users: @users, lessons: @lab_dates, lesson_type: 'lab'}
+
+      .panel.panel-default
+        .panel-heading
+          = link_to t(:laboratory_results), '#collapseTwo', 'data-toggle' => 'collapse', 'data-parent' => '#accordion'
+        .panel-collapse.collapse.in#collapseTwo
+          .panel-body
+            = render partial: 'results', locals:{users: @users, lessons: @lab_dates, lesson_type: 'lab'}
+
+      .panel.panel-default
+        .panel-heading
+          = link_to t(:practice_visits), '#collapseThree', 'data-toggle' => 'collapse', 'data-parent' => '#accordion'
+        .panel-collapse.collapse#collapseThree
+          .panel-body
+            = render partial: 'visits', locals:{users: @users, lessons: @practice_dates, lesson_type: 'practice'}
+
+      .panel.panel-default
+        .panel-heading
+          = link_to t(:practice_results), '#collapseFore', 'data-toggle' => 'collapse', 'data-parent' => '#accordion'
+        .panel-collapse.collapse#collapseFore
+          .panel-body
+            = render partial: 'results', locals:{users: @users, lessons: @practice_dates, lesson_type: 'practice'}
+
+
+
+
+

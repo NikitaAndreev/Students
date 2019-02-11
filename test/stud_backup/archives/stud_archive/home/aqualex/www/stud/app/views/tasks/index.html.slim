@@ -1,0 +1,13 @@
+.panel.panel-default
+  .panel-heading
+    h2
+      =t(:laboratory_page) if @task_type=='lab'
+      =t(:practice_page) if @task_type=='practice'
+
+      - if can?(:manage, Task)
+        = link_to new_task_path(type: @task_type) do
+          span.glyphicon.glyphicon-plus.left_margin
+
+  .panel-body
+    ul.list-unstyled
+      =render partial: 'task', collection: @tasks

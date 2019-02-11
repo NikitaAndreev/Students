@@ -1,0 +1,29 @@
+.left_margin{
+  margin-left: 1.5em;
+}
+
+.table-lessons{
+  th{
+    padding: 2px;
+  }
+  td{
+    padding: 2px;
+  }
+}
+
+table{
+  th{
+    padding: 2px;
+  }
+  td{
+    padding: 2px;
+  }
+}
+
+.warning, #errorExplanation, .errorExplanation{
+  padding: 1em 1em 1em 1em;
+  margin: 1em 0;
+  border: 1px solid #fc0;
+  background: #fff3c5;
+  color: #6b5e2b;
+}

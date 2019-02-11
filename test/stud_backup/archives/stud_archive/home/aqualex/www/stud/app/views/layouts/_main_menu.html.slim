@@ -1,0 +1,24 @@
+.row.header
+  .col-sm-3.logo
+    .title-brand
+      h1=link_to t(:information), root_path
+  .col-sm-9.navigation
+    nav.navbar.navbar-default
+      ul.nav.navbar-nav
+        li = link_to t(:main_page), root_path
+        li = link_to t(:library_page), documents_path
+        li = link_to t(:laboratory_page), tasks_path(type: 'lab')
+        li = link_to t(:practice_page), tasks_path(type: 'practice')
+        -if user_signed_in?
+          li = link_to t(:my_profile), user_path(current_user)
+          li = link_to t(:logout), destroy_user_session_path, method: :delete, data:{confirm: 'Are your suare?'}
+        -else
+          li=link_to t(:login), new_user_session_path
+        -if admin?
+          li
+            =link_to toggle_register_path(current_group), remote: true, method: :post, title: t(:can_register_hint) do
+              #can_register
+                -if current_group.can_register?
+                  span.glyphicon.glyphicon-plus
+                -else
+                  span.glyphicon.glyphicon-minus

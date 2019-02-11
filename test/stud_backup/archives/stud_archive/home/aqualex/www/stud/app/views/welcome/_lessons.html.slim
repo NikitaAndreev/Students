@@ -1,0 +1,9 @@
+li
+  -task = Lesson.for_group(current_group.id).labs.find_by_lesson_date(lesson.lesson_date).task if islab
+  -task = Lesson.for_group(current_group.id).practices.find_by_lesson_date(lesson.lesson_date).task unless islab
+  =link_to l(lesson.lesson_date, :format=>:published_date), task_path(task) if task
+  -if can? :manage, Lesson
+    = link_to edit_by_date_lessons_path(:date=>lesson.lesson_date) do
+      span.glyphicon.glyphicon-pencil.left_margin
+    = link_to delete_by_date_lessons_path(:date=>lesson.lesson_date), method: :delete, data:{confirm: 'Are your suare?'} do
+      span.glyphicon.glyphicon-remove

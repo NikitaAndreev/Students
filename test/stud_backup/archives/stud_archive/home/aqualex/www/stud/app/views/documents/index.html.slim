@@ -1,0 +1,10 @@
+.panel.panel-default
+  .panel-heading
+    h2
+      =t(:documents_page)
+      -if can?(:manage, Document)
+        = link_to new_document_path do
+          span.glyphicon.glyphicon-plus.left_margin
+  .panel-body
+    ol.list-unstyled
+      =render partial: 'document', collection: @documents

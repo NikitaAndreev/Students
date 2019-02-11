@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    link{rel='shortcut icon', href="#{main_app.root_path}icon.gif"}
+    meta{ http-equiv='Content-Type', content='text/html;charset=utf-8'}
+    =csrf_meta_tag
+
+    title= t(:file_manager)
+    = stylesheet_link_tag    'file_manager', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'file_manager.js', 'data-turbolinks-track' => true
+
+  body{style='padding:10px'}
+    = yield

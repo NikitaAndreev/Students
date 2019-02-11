@@ -1,0 +1,6 @@
+<% if @group.can_register? %>
+  $('#can_register').html("<span class='glyphicon glyphicon-plus'></span>")
+<% else %>
+  $('#can_register').html("<span class='glyphicon glyphicon-minus'></span>")
+<% end %>
+

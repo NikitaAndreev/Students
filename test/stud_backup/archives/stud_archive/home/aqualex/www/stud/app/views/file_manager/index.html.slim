@@ -1,0 +1,18 @@
+.panel.panel-default
+  .panel-heading
+    h2
+      = t(:images_manager)
+      = link_to new_user_image_path(current_user), remote: true do
+        span.glyphicon.glyphicon-plus.left_margin
+  .panel-body
+    div
+      = render partial: 'photo', collection: @photos
+
+
+.modal.fade#images_dlg tabindex = "-1" role="dialog"
+  .modal-dialog
+    .modal-content#images_content
+
+
+
+

@@ -1,0 +1,11 @@
+li
+  =link_to "#{task.num}. #{task.name}", task_path(task)
+  = link_to task_path(task) do
+    span.glyphicon.glyphicon-eye-open.left_margin
+  - if can? :manage, Task
+    = link_to edit_task_path(task) do
+      span.glyphicon.glyphicon-pencil.left_margin
+    = link_to task_path(task), method: :delete, data:{confirm: 'Are your suare?'} do
+      span.glyphicon.glyphicon-remove.left_margin
+
+

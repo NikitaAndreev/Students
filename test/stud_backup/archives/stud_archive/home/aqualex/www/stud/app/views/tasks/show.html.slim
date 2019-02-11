@@ -1,0 +1,17 @@
+.panel.panel-default
+  .panel-heading
+    .row
+      .col-sm-10
+
+        h2
+          =@task.name
+          - if can?(:manage, Task)
+            = link_to edit_task_path(@task) do
+              span.glyphicon.glyphicon-pencil.left_margin
+
+      .col-sm-2
+        p прикрепленные файлы
+        = link_to(@task.asset_name, @task.asset.url) if @task.asset
+
+  .panel-body
+    =raw @task.body

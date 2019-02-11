@@ -1,0 +1,10 @@
+.row
+  .col-sm-2
+    =l(lesson.lesson_date, :format=>:published_date)
+  .col-sm-8
+    =lesson.task.name
+  .col-sm-1.text-center
+    =lesson.visited ? '+' : '-'
+  .col-sm-1.text-center
+    =lesson.result
+

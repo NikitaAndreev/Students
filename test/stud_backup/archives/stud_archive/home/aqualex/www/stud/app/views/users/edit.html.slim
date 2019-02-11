@@ -1,0 +1,14 @@
+.panel.panel-default
+  .panel-heading
+    h2=t(:edit_profile)
+  .panel-body
+    = semantic_form_for @user do |f|
+      = f.inputs do
+        = f.input :family
+        = f.input :name
+        = f.input :last_name
+        -if can? :manage, User
+          =f.input :email
+      = f.actions do
+        = f.action :submit, :as => :button
+        = f.action :cancel
